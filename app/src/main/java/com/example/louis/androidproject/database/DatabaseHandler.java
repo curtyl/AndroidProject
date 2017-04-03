@@ -12,21 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by louis on 10/02/2017.
+ * Created by louis on 10/02/2017 for AndroidProject.
  */
 
 public class DatabaseHandler implements Database {
 
-    private DatabaseHelper mDbHelper;
+    private final DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
     private final Context pContext;
 
+    /**
+     * Constructor
+     * @param pContext
+     */
     public DatabaseHandler(Context pContext){
         this.pContext = pContext;
         mDbHelper = new DatabaseHelper(pContext);
     }
 
+    /**
+     * Insert the city
+     * @param cObj
+     */
     public void insert(CityObject cObj) {
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -37,6 +45,10 @@ public class DatabaseHandler implements Database {
         mDb.insert(VILLE_TABLE_NAME, null, values);
     }
 
+    /**
+     *
+     * @return List of cityObject
+     */
     public List<CityObject> selectAll() {
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -83,6 +95,10 @@ public class DatabaseHandler implements Database {
         return city;
     }
 
+    /**
+     * Remove the GlobalObject from the database
+     * @param mObj
+     */
     public void removeObj(GlobalObject mObj) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(VILLE_TABLE_NAME, KEY_ID + "= ?", new String[]{String.valueOf(mObj.getRxs().getObs().get(0).getMsg().getCity().getIdx())});

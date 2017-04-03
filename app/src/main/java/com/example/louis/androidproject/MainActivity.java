@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseHandler dbHandler;
-   //{"@3067", "@3071"};
-    private ArrayList<GlobalObject> initialCities = new ArrayList<>();
+    private final ArrayList<GlobalObject> initialCities = new ArrayList<>();
 
 
     @Override
@@ -57,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = new DatabaseHandler(this);
         final List<CityObject> tmpCities = dbHandler.selectAll();
 
+        /**
+         * Initialize the database
+         */
         for(int i=0; i<tmpCities.size();i++) {
             getDataFromUrl("https://api.waqi.info/api/feed/@"+tmpCities.get(i).getIdx()+"/obs.fr.json?token=af073d16e3707f6d085660cfcd0137a61b961365", false);
         }
-
+        /**
+         * Add event on editText
+         */
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -81,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        /**
+         * Add event on the on click button
+         */
         valider.setOnClickListener(new Button.OnClickListener(){
 
             @Override
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 boolean continuer = true;
-                for(int i=0; i<tmpCities.size() && continuer;i++) {
+                for(int i=0; i<initialCities.size() && continuer;i++) {
                     Integer check = Integer.parseInt(mEditText.getText().toString());
                     if(!check.equals((tmpCities.get(i).getIdx()))){
                          continuer = true;
@@ -116,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
         helper.attachToRecyclerView(mRecyclerView);
     }
 
+    /**
+     * This function get data from the API
+     * @param url
+     * @param add
+     */
     private void getDataFromUrl(String url, final Boolean add) {
         final TextView mTextView = (TextView) findViewById(R.id.info);
 

@@ -3,12 +3,12 @@ package com.example.louis.androidproject.model;
 import java.util.ArrayList;
 
 /**
- * Created by louis on 30/01/2017.
+ * Created by louis on 30/01/2017 for AndroidProject.
  */
 public class IaqiObject {
-    String p;
-    ArrayList<Integer> v;
-    String i;
+    private String p;
+    private ArrayList<Integer> v;
+    private String i;
 
     public String getP() {
         return p;
