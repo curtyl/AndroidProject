@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button">Valider</string>
+    <string name="app_name">Indicateur pollution</string>
+    <string name="editText">Entrer un nombre</string>
+</resources>

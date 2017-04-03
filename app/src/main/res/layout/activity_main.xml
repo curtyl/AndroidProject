@@ -16,10 +16,11 @@
     </android.support.v7.widget.RecyclerView>
 
     <Button
-        android:text="Valider"
+        android:text="@string/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/valider"
+        android:enabled="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
@@ -29,7 +30,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/idCity"
-        android:text="Entrez un nombre"
+        android:hint="@string/editText"
         android:layout_above="@+id/my_recycler_view"
         android:layout_alignParentStart="true"
         android:imeOptions="actionGo|actionDone" />
