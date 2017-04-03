@@ -1,7 +1,6 @@
 package com.example.louis.androidproject.tools;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -10,7 +9,6 @@ import com.example.louis.androidproject.R;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -33,7 +31,7 @@ public class AqicnAsyncTask extends AsyncTask<String, Integer, String> {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             byte[] contents = new byte[1024];
-            int bytesRead=0;
+            int bytesRead;
 
             while( (bytesRead = in.read(contents)) != -1){
                 strFileContents = new String(contents, 0, bytesRead);

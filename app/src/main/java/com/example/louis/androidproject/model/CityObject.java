@@ -4,11 +4,13 @@ package com.example.louis.androidproject.model;
  * Created by louis on 30/01/2017.
  */
 
+
 public class CityObject {
     String name;
     String url;
     int idx;
     String id;
+    String[] geo;
 
     public String getName() {
         return name;
@@ -40,5 +42,13 @@ public class CityObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String[] getGeo() {
+        return geo;
+    }
+
+    public void setGeo(String[] geo) {
+        this.geo = geo;
     }
 }
