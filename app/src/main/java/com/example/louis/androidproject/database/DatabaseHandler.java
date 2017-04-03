@@ -1,5 +1,6 @@
 package com.example.louis.androidproject.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -24,7 +25,7 @@ public class DatabaseHandler implements Database {
 
     /**
      * Constructor
-     * @param pContext
+     * @param pContext context
      */
     public DatabaseHandler(Context pContext){
         this.pContext = pContext;
@@ -33,7 +34,7 @@ public class DatabaseHandler implements Database {
 
     /**
      * Insert the city
-     * @param cObj
+     * @param cObj city
      */
     public void insert(CityObject cObj) {
         mDb = mDbHelper.getWritableDatabase();
@@ -60,7 +61,7 @@ public class DatabaseHandler implements Database {
                 COLUMN_NAME_CITY
         };
         //Cursor cursor = db.rawQuery("SELECT * FROM " + VILLE_TABLE_NAME + ";", projection);
-        Cursor cursor = db.query(VILLE_TABLE_NAME, projection, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = db.query(VILLE_TABLE_NAME, projection, null, null, null, null, null);
 
         List<CityObject> itemIds = new ArrayList<>();
         CityObject city;
@@ -86,7 +87,7 @@ public class DatabaseHandler implements Database {
         String selection = KEY_ID + " = ?";
         String[] selectionArgs = new String[] {String.valueOf(idx)};
 
-        Cursor cursor = db.query(VILLE_TABLE_NAME, projection,selection, selectionArgs, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = db.query(VILLE_TABLE_NAME, projection,selection, selectionArgs, null, null, null);
 
         CityObject city = new CityObject();
         city.setIdx(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
@@ -97,7 +98,7 @@ public class DatabaseHandler implements Database {
 
     /**
      * Remove the GlobalObject from the database
-     * @param mObj
+     * @param mObj GlobalObject
      */
     public void removeObj(GlobalObject mObj) {
         mDb = mDbHelper.getWritableDatabase();

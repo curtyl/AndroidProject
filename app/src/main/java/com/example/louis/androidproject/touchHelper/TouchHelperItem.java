@@ -24,8 +24,8 @@ public class TouchHelperItem extends ItemTouchHelper.SimpleCallback {
 
     /**
      * Call the method remove from myAdapter to remove the item swiped at the "Adapter Position"
-     * @param viewHolder
-     * @param direction
+     * @param viewHolder view
+     * @param direction integer
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {

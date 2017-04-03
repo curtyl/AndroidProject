@@ -1,5 +1,6 @@
 package com.example.louis.androidproject.tools;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -53,9 +54,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     /**
      * Constructor
-     * @param ctx
-     * @param initialCities
-     * @param bdd
+     * @param ctx context
+     * @param initialCities List of GlobalObject
+     * @param bdd database
+     * @param Activity Main Activity
      */
     public MyAdapter(Context ctx, ArrayList<GlobalObject> initialCities, DatabaseHandler bdd, MainActivity Activity) {
         mCtx = ctx;
@@ -69,8 +71,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     /**
      * Create a new view and set the view parameters
-     * @param parent
-     * @param viewType
+     * @param parent View
+     * @param viewType integer
      * @return ViewHolder
      */
     @Override
@@ -85,7 +87,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     /**
      * Function that remove a city and notify
-     * @param position
+     * @param position integer
      */
     public void remove(int position) {
         mBdd.removeObj(mDataset.get(position));
@@ -98,9 +100,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     /**
      * get element from your dataset at the position and replace the contents fo the view with that element
-     * @param holder
-     * @param position
+     * @param holder view
+     * @param position integer
      */
+    @SuppressLint({"RecyclerView", "SetTextI18n"})
     @Override
     public void onBindViewHolder(ViewHolder holder,final int position) {
 
@@ -126,7 +129,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 try {
                     mCtx.startActivity(Intent.createChooser(i, mCtx.getResources().getString(R.string.sendMail)));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(mCtx, mCtx.getResources().getString(R.string.mailErreur), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mCtx, mCtx.getResources().getString(R.string.mailError), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -136,13 +139,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 holder.mButton.setText(msg.getIaqi().get(i).getV().get(0).toString());
                 if(msg.getIaqi().get(i).getV().get(0)<50) {
                     holder.mButton.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.green));
-                    holder.global.setHighlightColor(ContextCompat.getColor(mCtx, R.color.green));
+                    holder.global.setTextColor(ContextCompat.getColor(mCtx, R.color.green));
                 } else if(msg.getIaqi().get(i).getV().get(0)<100) {
                     holder.mButton.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.orange));
-                    holder.global.setHighlightColor(ContextCompat.getColor(mCtx, R.color.orange));
+                    holder.global.setTextColor(ContextCompat.getColor(mCtx, R.color.orange));
                 } else {
                     holder.mButton.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.red));
-                    holder.global.setHighlightColor(ContextCompat.getColor(mCtx, R.color.red));
+                    holder.global.setTextColor(ContextCompat.getColor(mCtx, R.color.red));
                 }
             }
             if(msg.getIaqi().get(i).getP().contains("t")) {

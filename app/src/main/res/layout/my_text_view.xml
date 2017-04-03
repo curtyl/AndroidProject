@@ -13,7 +13,7 @@
         android:layout_gravity="center_vertical"
         android:layout_height="60dp"
         android:layout_width="60dp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,RtlHardcoded" />
 
     <TextView
         android:id="@+id/globalinfo"

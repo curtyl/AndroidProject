@@ -1,5 +1,6 @@
 package com.example.louis.androidproject;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -124,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This function get data from the API
-     * @param url
-     * @param add
+     * @param url string de l'url
+     * @param add boolean
      */
     public void getDataFromUrl(String url, final Boolean add) {
         final TextView mTextView = (TextView) findViewById(R.id.info);
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         mAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onErrorResponse(VolleyError error) {
                 mTextView.setText("That didn't work!");

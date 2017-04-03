@@ -16,7 +16,7 @@ class DatabaseHelper extends SQLiteOpenHelper implements Database{
 
     /**
      * The constructor of the class
-     * @param context
+     * @param context context
      */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,7 +24,7 @@ class DatabaseHelper extends SQLiteOpenHelper implements Database{
 
     /**
      * Create the database
-     * @param db
+     * @param db Database
      */
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_VILLE_TABLE);
@@ -32,9 +32,9 @@ class DatabaseHelper extends SQLiteOpenHelper implements Database{
 
     /**
      * Upgrade the database
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db Database
+     * @param oldVersion integer
+     * @param newVersion integer
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This Database is only a cache for online data, so its upgrade policy is
@@ -45,9 +45,9 @@ class DatabaseHelper extends SQLiteOpenHelper implements Database{
 
     /**
      * Restore an old version of the database
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db Database
+     * @param oldVersion integer
+     * @param newVersion integer
      */
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);

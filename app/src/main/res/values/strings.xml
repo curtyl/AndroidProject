@@ -3,6 +3,6 @@
     <string name="button">Validate</string>
     <string name="editText">Enter number</string>
     <string name="mailError">There are no email clients installed.</string>
-    <string name="sendMail">"Send mail..."</string>
+    <string name="sendMail">"Send mail…"</string>
     <string name="bodyMail">"'s air quality is about "</string>
 </resources>
