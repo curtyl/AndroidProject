@@ -10,11 +10,11 @@ import com.example.louis.androidproject.tools.MyAdapter;
  */
 
 public class TouchHelperItem extends ItemTouchHelper.SimpleCallback {
-    private MyAdapter mMyAdapter;
+    private MyAdapter myAdapter;
 
     public TouchHelperItem(MyAdapter myAdapter){
         super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        this.mMyAdapter = myAdapter;
+        this.myAdapter = myAdapter;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class TouchHelperItem extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        mMyAdapter.remove(viewHolder.getAdapterPosition());
+        myAdapter.remove(viewHolder.getAdapterPosition());
     }
 }

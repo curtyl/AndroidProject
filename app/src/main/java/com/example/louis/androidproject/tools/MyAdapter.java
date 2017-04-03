@@ -83,34 +83,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that elementpublic Button mButton;
 
-        ArrayList<GlobalObject> gloO = mDataset;
+        MessageObject msg = mDataset.get(position).getRxs().getObs().get(0).getMsg();
 
-        for(int i=0;i<mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().size();i++) {
-            if(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getP().contains("pm10")) {
-                holder.mButton.setText(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getV().get(0).toString());
-                holder.max.setText(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getV().get(2).toString());
-                holder.min.setText(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getV().get(1).toString());
-                if(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getV().get(0)<50) {
+        for(int i=0;i<msg.getIaqi().size();i++) {
+            if(msg.getIaqi().get(i).getP().contains("pm10")) {
+                holder.mButton.setText(msg.getIaqi().get(i).getV().get(0).toString());
+                holder.max.setText(msg.getIaqi().get(i).getV().get(2).toString());
+                holder.min.setText(msg.getIaqi().get(i).getV().get(1).toString());
+                if(msg.getIaqi().get(i).getV().get(0)<50) {
                     holder.mButton.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.green));
-                } else if(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getV().get(0)<100) {
+                } else if(msg.getIaqi().get(i).getV().get(0)<100) {
                     holder.mButton.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.orange));
                 } else {
                     holder.mButton.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.red));
                 }
             }
-            if(mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getP().contains("t")) {
-                String city = mDataset.get(position).getRxs().getObs().get(position).getMsg().getCity().getName();
-                if(mDataset.get(position).getRxs().getObs().get(position).getMsg().getCity().getName().length()>20) {
-                    city = mDataset.get(position).getRxs().getObs().get(position).getMsg().getCity().getName().substring(0,20)+"...";
+            if(msg.getIaqi().get(i).getP().contains("t")) {
+                String city = msg.getCity().getName();
+                if(msg.getCity().getName().length()>20) {
+                    city = msg.getCity().getName().substring(0,20)+"...";
                 }
-                holder.global.setText(city+" "+mDataset.get(position).getRxs().getObs().get(position).getMsg().getIaqi().get(i).getV().get(0)+"°C");
+                holder.global.setText(city+" "+msg.getIaqi().get(i).getV().get(0)+"°C");
             }
         }
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(mDataset.get(position).getRxs().getObs().get(position).getMsg().getTimestamp()*1000);
+        calendar.setTimeInMillis(msg.getTimestamp()*1000);
         holder.lastUpdate.setText(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
-        holder.gps.setText(mDataset.get(position).getRxs().getObs().get(position).getMsg().getCity().getGeo()[0].substring(0,6)+", "+mDataset.get(position).getRxs().getObs().get(position).getMsg().getCity().getGeo()[1].substring(0,6));
+        holder.gps.setText(msg.getCity().getGeo()[0].substring(0,6)+", "+msg.getCity().getGeo()[1].substring(0,6));
     }
 
 

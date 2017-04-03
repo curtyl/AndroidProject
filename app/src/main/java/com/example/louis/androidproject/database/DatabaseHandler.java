@@ -37,7 +37,7 @@ public class DatabaseHandler implements Database {
         mDb.insert(VILLE_TABLE_NAME, null, values);
     }
 
-    public List<GlobalObject> selectAll() {
+    public List<CityObject> selectAll() {
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -50,7 +50,7 @@ public class DatabaseHandler implements Database {
         //Cursor cursor = db.rawQuery("SELECT * FROM " + VILLE_TABLE_NAME + ";", projection);
         Cursor cursor = db.query(VILLE_TABLE_NAME, projection, null, null, null, null, null);
 
-        List itemIds = new ArrayList<>();
+        List<CityObject> itemIds = new ArrayList<>();
         CityObject city;
         if(cursor.moveToFirst()) {
             do {
@@ -84,6 +84,7 @@ public class DatabaseHandler implements Database {
     }
 
     public void removeObj(GlobalObject mObj) {
+        mDb = mDbHelper.getWritableDatabase();
         mDb.delete(VILLE_TABLE_NAME, KEY_ID + "= ?", new String[]{String.valueOf(mObj.getRxs().getObs().get(0).getMsg().getCity().getIdx())});
     }
 
