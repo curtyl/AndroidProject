@@ -8,7 +8,7 @@ The aim of this application is to show the quality air in a city. For that, you 
 
 ## Prerequisites
 
-U would need an Android smartphone or a tablet with the 5.0 version and above
+You would need an Android smartphone or a tablet with the 5.0 version and above
 
 ## Installing
 
