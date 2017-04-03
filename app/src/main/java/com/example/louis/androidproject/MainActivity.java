@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter = new MyAdapter(this, initialCities, dbHandler);
+        mAdapter = new MyAdapter(this, initialCities, dbHandler, this);
         mRecyclerView.setAdapter(mAdapter);
         dbHandler.close();
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
      * @param url
      * @param add
      */
-    private void getDataFromUrl(String url, final Boolean add) {
+    public void getDataFromUrl(String url, final Boolean add) {
         final TextView mTextView = (TextView) findViewById(R.id.info);
 
         // Instantiate the RequestQueue.
@@ -140,7 +140,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Gson gson = new Gson();
                         GlobalObject obj = gson.fromJson(response, GlobalObject.class);
-                        initialCities.add(obj);
+
+                        if(initialCities.indexOf(obj) == -1){
+                            initialCities.add(obj);
+                        }
                         if(add){
                             dbHandler.insert(obj.getRxs().getObs().get(0).getMsg().getCity());
                         }

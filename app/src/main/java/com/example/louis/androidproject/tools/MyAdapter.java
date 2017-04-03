@@ -1,6 +1,7 @@
 package com.example.louis.androidproject.tools;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.louis.androidproject.MainActivity;
 import com.example.louis.androidproject.R;
 import com.example.louis.androidproject.database.DatabaseHandler;
 import com.example.louis.androidproject.model.GlobalObject;
@@ -24,6 +27,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private final ArrayList<GlobalObject> mDataset;
     private final Context mCtx;
     private final DatabaseHandler mBdd;
+    private final MainActivity mActivity;
     private DatabaseHandler dbHandler;
 
     // Provide a reference to the views for each data item
@@ -33,10 +37,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // each data item is just a string in this case
         public final Button mButton;
         public final TextView global;
+        public final Button share;
+        public final Button refresh;
         public ViewHolder(View v) {
             super(v);
             mButton = (Button) v.findViewById(R.id.button);
             global = (TextView) v.findViewById(R.id.globalinfo);
+            share = (Button) v.findViewById(R.id.share);
+            refresh = (Button) v.findViewById(R.id.refresh);
+
         }
     }
 
@@ -48,10 +57,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * @param initialCities
      * @param bdd
      */
-    public MyAdapter(Context ctx, ArrayList<GlobalObject> initialCities, DatabaseHandler bdd) {
+    public MyAdapter(Context ctx, ArrayList<GlobalObject> initialCities, DatabaseHandler bdd, MainActivity Activity) {
         mCtx = ctx;
         mDataset = initialCities;
         mBdd = bdd;
+        mActivity = Activity;
 
     }
 
@@ -92,9 +102,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * @param position
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder,final int position) {
 
-        MessageObject msg = mDataset.get(position).getRxs().getObs().get(0).getMsg();
+
+        final MessageObject msg = mDataset.get(position).getRxs().getObs().get(0).getMsg();
+
+        holder.refresh.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.getDataFromUrl("https://api.waqi.info/api/feed/@" + mDataset.get(position).getRxs().getObs().get(0).getMsg().getCity().getIdx()+ "/obs.fr.json",false);
+            }
+        });
+
+        holder.share.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+                i.putExtra(Intent.EXTRA_TEXT   , mDataset.get(position).getRxs().getObs().get(0).getMsg().getCity().getName() + mCtx.getResources().getString(R.string.bodyMail) + msg.getIaqi().get(0).getV().get(0));
+                try {
+                    mCtx.startActivity(Intent.createChooser(i, mCtx.getResources().getString(R.string.sendMail)));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(mCtx, mCtx.getResources().getString(R.string.mailErreur), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         for(int i=0;i<msg.getIaqi().size();i++) {
             if(msg.getIaqi().get(i).getP().contains("pm10")) {
