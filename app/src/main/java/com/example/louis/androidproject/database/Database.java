@@ -2,7 +2,7 @@ package com.example.louis.androidproject.database;
 
 
 /**
- * Created by louis on 10/02/2017.
+ * Created by louis on 10/02/2017 for AndroidProject.
  */
 
 interface Database {

@@ -16,9 +16,9 @@ import java.net.URL;
  *
  * Async task usefull to get data from URL and populate textView
  */
-public class AqicnAsyncTask extends AsyncTask<String, Integer, String> {
+class AqicnAsyncTask extends AsyncTask<String, Integer, String> {
 
-    private Activity act;
+    private final Activity act;
 
     public AqicnAsyncTask(Activity act) {
         this.act = act;

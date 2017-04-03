@@ -3,13 +3,13 @@ package com.example.louis.androidproject.model;
 import java.util.ArrayList;
 
 /**
- * Created by louis on 30/01/2017.
+ * Created by louis on 30/01/2017 for AndroidProject.
  */
 
 public class MessageObject {
-    long timestamp;
-    CityObject city;
-    ArrayList<IaqiObject> iaqi;
+    private long timestamp;
+    private CityObject city;
+    private ArrayList<IaqiObject> iaqi;
 
     public long getTimestamp() {
         return timestamp;

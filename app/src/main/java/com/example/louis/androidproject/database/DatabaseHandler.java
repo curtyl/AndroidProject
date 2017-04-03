@@ -1,5 +1,6 @@
 package com.example.louis.androidproject.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,21 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by louis on 10/02/2017.
+ * Created by louis on 10/02/2017 for AndroidProject.
  */
 
 public class DatabaseHandler implements Database {
 
-    private DatabaseHelper mDbHelper;
+    private final DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
 
     private final Context pContext;
 
+    /**
+     * Constructor
+     * @param pContext context
+     */
     public DatabaseHandler(Context pContext){
         this.pContext = pContext;
         mDbHelper = new DatabaseHelper(pContext);
     }
 
+    /**
+     * Insert the city
+     * @param cObj city
+     */
     public void insert(CityObject cObj) {
         mDb = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -37,6 +46,10 @@ public class DatabaseHandler implements Database {
         mDb.insert(VILLE_TABLE_NAME, null, values);
     }
 
+    /**
+     *
+     * @return List of cityObject
+     */
     public List<CityObject> selectAll() {
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -48,7 +61,7 @@ public class DatabaseHandler implements Database {
                 COLUMN_NAME_CITY
         };
         //Cursor cursor = db.rawQuery("SELECT * FROM " + VILLE_TABLE_NAME + ";", projection);
-        Cursor cursor = db.query(VILLE_TABLE_NAME, projection, null, null, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = db.query(VILLE_TABLE_NAME, projection, null, null, null, null, null);
 
         List<CityObject> itemIds = new ArrayList<>();
         CityObject city;
@@ -74,7 +87,7 @@ public class DatabaseHandler implements Database {
         String selection = KEY_ID + " = ?";
         String[] selectionArgs = new String[] {String.valueOf(idx)};
 
-        Cursor cursor = db.query(VILLE_TABLE_NAME, projection,selection, selectionArgs, null, null, null);
+        @SuppressLint("Recycle") Cursor cursor = db.query(VILLE_TABLE_NAME, projection,selection, selectionArgs, null, null, null);
 
         CityObject city = new CityObject();
         city.setIdx(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
@@ -83,6 +96,10 @@ public class DatabaseHandler implements Database {
         return city;
     }
 
+    /**
+     * Remove the GlobalObject from the database
+     * @param mObj GlobalObject
+     */
     public void removeObj(GlobalObject mObj) {
         mDb = mDbHelper.getWritableDatabase();
         mDb.delete(VILLE_TABLE_NAME, KEY_ID + "= ?", new String[]{String.valueOf(mObj.getRxs().getObs().get(0).getMsg().getCity().getIdx())});

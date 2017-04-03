@@ -3,4 +3,7 @@
     <string name="button">Valider</string>
     <string name="app_name">Indicateur pollution</string>
     <string name="editText">Entrer un nombre</string>
+    <string name="mailError">"Il n'y a pas de mail de reception."</string>
+    <string name="sendMail">"Envoie du mail…"</string>
+    <string name="bodyMail">" possède une qualité d'air de : "</string>
 </resources>

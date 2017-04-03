@@ -1,16 +1,16 @@
 package com.example.louis.androidproject.model;
 
 /**
- * Created by louis on 30/01/2017.
+ * Created by louis on 30/01/2017 for AndroidProject.
  */
 
 
 public class CityObject {
-    String name;
-    String url;
-    int idx;
-    String id;
-    String[] geo;
+    private String name;
+    private String url;
+    private int idx;
+    private String id;
+    private String[] geo;
 
     public String getName() {
         return name;
